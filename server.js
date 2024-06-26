@@ -1,17 +1,32 @@
 const exrpress = require('express')
 const bodyParser = require('body-parser')
+const crypto = require('crypto')
 const contract = require('./contract')
 const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
 
 app.post('/issue-certificate',async(req,res)=>{
-    if(!req.body.certificate_hash || !req.body.tracking_id){
+    if(!req.body.tracking_id){
         return res.status(400).json({data:"Fileds Are Missing"})
     }
+
+    let cert_hash  = crypto.createHash('sha256')
     let cert_id = Math.floor(Math.random() * 12562) * Math.floor(Math.random() * 25641);
-    let cert_hash = req.body.certificate_hash;
     let track_id = req.body.tracking_id;
+
+    try {
+        request = await contract.read_request(track_id.toString())
+        request = JSON.parse(request)
+        request.Certificate_Id = cert_id
+        let newRequest = JSON.stringify(request)
+        cert_hash = cert_hash.update(newRequest)
+        cert_hash = cert_hash.digest('hex')
+    } catch(error) {
+        if (error){
+            return res.status(500).json({data:`No data found for  id ${track_id}`})
+        }
+    }
 
     try {
         let result = await contract.issue_certificate(track_id.toString(),cert_hash,cert_id.toString())
@@ -103,7 +118,26 @@ app.get('/read-certificate-by-id',async(req,res)=>{
 })
 
 
+app.get('/test/:trac/:cert',async (req,res)=>{
+    let track_id = req.params.trac
+    let cert_id = req.params.cert
+    let request,cert_hash
+    try {
+        request = await contract.read_request(track_id.toString())
+        request = JSON.parse(request)
+        request.Certificate_Id = cert_id
+        console.log(request)
+        
 
+        
+        console.log(request)
+        console.log("certtificate Id",request.Certificate_Id)
+        return res.send(cert_hash)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
 
 
 

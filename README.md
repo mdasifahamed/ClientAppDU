@@ -6,14 +6,12 @@
     - **Request Body:**
 ```javascript
             {
-                "certificate_hash": "abc123hash",
                 "tracking_id": "1"
             }
 
 ```
 
-- **certificate_hash:** The degree obtained by the student.
-- **major (string):** The hash of the certificate.
+
 - **tracking_id (int):** The tracking ID associated with the certificate.
 
 - **Response**:
