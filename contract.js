@@ -1,3 +1,4 @@
+const { verify } = require('crypto');
 const connect_gateway = require('./fabric_connection')
 const utf8Decoder = new TextDecoder()
 const channelName = 'mychannel';
@@ -121,6 +122,26 @@ async function history_of_a_request(tracking_id){
             client.close()
         }
 }
+async function verify_by_hash(hash) {
+    const {gateway,client} = await connect_gateway()
+        try {
+            const network = await gateway.getNetwork(channelName)
+            const contract = await network.getContract(chaincodeName)
+            let trx = await contract.evaluateTransaction('VerifyCertificateByCertificateHash', hash.toString())
+            trx = utf8Decoder.decode(trx)
+            return trx
+        } catch (error) {
+
+            if (error) {
+                return "Something Went Wrong"
+            }
+        } finally {
+            gateway.close()
+
+            client.close()
+        }
+
+}
 
 
 module.exports={
@@ -129,4 +150,5 @@ module.exports={
     get_all_request,
     history_of_a_request,
     read_certificate_by_certid,
+    verify_by_hash
 }
