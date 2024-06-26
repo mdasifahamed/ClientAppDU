@@ -1,39 +1,28 @@
 # API Documentation
-1. ## Submit Request
-    - **Endpoint:** /submit-request
+1. ## Issue Certificate
+    - **Endpoint:** /issue-certificate
     - **Method:** POST
-    - **Description:** Submits a request to the blockchain network.
+    - **Description:** Issues a certificate to the blockchain network.
     - **Request Body:**
 ```javascript
             {
-                "student_name": "John Doe",
-                "student_id": "123456",
-                "degree": "Bachelor of Science",
-                "major": "Computer Science",
-                "result": "3.25"
+                "certificate_hash": "abc123hash",
+                "tracking_id": "1"
             }
+
 ```
-- **student_name (string):** The name of the student.
-- **student_id (int):** The ID of the student.
-- **degree (string):** The degree obtained by the student.
-- **major (string):** The major of the student.
-- **result (float):** The result of the student's degree (e.g., 3.25, Failed).
+
+- **certificate_hash:** The degree obtained by the student.
+- **major (string):** The hash of the certificate.
+- **tracking_id (int):** The tracking ID associated with the certificate.
 
 - **Response**:
-    - **200 OK:** Request successfully submitted
+    - **200 OK:** Certificate successfully issued.
 
 ```javascript
-            {
-                "data": {
-                    "track_id": "1",
-                    "student_name": "John Doe",
-                    "student_id": "123456",
-                    "degree": "Bachelor of Science",
-                    "major": "Computer Science",
-                    "result": "3.25"
-                    ...
-                }
-            }
+        {
+            "certificate_id": "1234",
+        }
 ```
 -  **400 Bad Request:** 400 Bad Request
 
@@ -46,11 +35,9 @@
 
 ```javascript
     {
-        "data": "Failed To Connect The Blockchain Network"
+        "data": "No data found for track id 1`"
     }
 ```
-
-
 
 2. ## Read Request by Tracking ID
     - **Endpoint:** /read-request/:tracking_id
