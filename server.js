@@ -6,22 +6,21 @@ const port = 8000
 app.use(bodyParser.json())
 
 app.post('/issue-certificate',async(req,res)=>{
-    if(!req.body.certifcate_id || !req.body.certificate_hash || !req.body.tracking_id){
+    if(!req.body.certificate_hash || !req.body.tracking_id){
         return res.status(400).json({data:"Fileds Are Missing"})
     }
-    let cert_id = req.body.certifcate_id;
+    let cert_id = Math.floor(Math.random() * 12562) * Math.floor(Math.random() * 25641);
     let cert_hash = req.body.certificate_hash;
     let track_id = req.body.tracking_id;
 
     try {
-        let result = await contract.issue_certificate(cert_id.toString(),cert_hash,track_id.toString())
+        let result = await contract.issue_certificate(track_id.toString(),cert_hash,cert_id.toString())
         return res.status(201).json(JSON.parse(result))
     } catch (error) {
         if (error){
-            return res.status(500).json({data:'Failed To Connect To Blockchain Network'})
+            return res.status(500).json({data:`No data found for  id ${track_id}`})
         }
     }
-    
 })
 
 app.get('/get-all-the-request', async(req,res)=>{
