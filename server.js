@@ -1,10 +1,12 @@
 const exrpress = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const crypto = require('crypto')
 const contract = require('./contract')
 const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
+app.use(cors());
 
 app.post('/issue-certificate',async(req,res)=>{
     if(!req.body.tracking_id){
