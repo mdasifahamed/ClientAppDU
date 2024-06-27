@@ -7,7 +7,7 @@ const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
 let corsOptions = {
-    origin : ['*']
+    origin : '*'
 }
 app.use(cors(corsOptions))
 
