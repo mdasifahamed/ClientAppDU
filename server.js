@@ -30,7 +30,7 @@ app.post('/issue-certificate',async(req,res)=>{
 
     try {
         let result = await contract.issue_certificate(track_id.toString(),cert_hash,cert_id.toString())
-        return res.status(201).json(JSON.parse(result))
+        return res.status(201).json({data: `Certificate Created With The Certificate Id ${result}`})
     } catch (error) {
         if (error){
             return res.status(500).json({data:`No data found for  id ${track_id}`})
