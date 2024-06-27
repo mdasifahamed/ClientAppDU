@@ -7,12 +7,13 @@ const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
 let corsOptions = {
-    origin : '*'
+    origin : '*',
+    optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions))
 
 
-app.post('/issue-certificate',async(req,res)=>{
+app.post('/issue-certificate', cors(corsOptions),async(req,res)=>{
     if(!req.body.tracking_id){
         return res.status(400).json({data:"Fileds Are Missing"})
     }
@@ -47,7 +48,7 @@ app.post('/issue-certificate',async(req,res)=>{
     }
 })
 
-app.get('/get-all-the-request', async(req,res)=>{
+app.get('/get-all-the-request', cors(corsOptions), async(req,res)=>{
 
     try {
         const result = await contract.get_all_request()
@@ -67,7 +68,7 @@ app.get('/get-all-the-request', async(req,res)=>{
     }
 })
 
-app.post('/history-of-certificate',async (req,res)=>{
+app.post('/history-of-certificate', cors(corsOptions),async (req,res)=>{
 
     let tracking_id = req.body.tracking_id
     if(!tracking_id){
@@ -96,7 +97,7 @@ app.post('/history-of-certificate',async (req,res)=>{
 })
 
 // For Click from the list
-app.get('/read-request/:tracking_id',async (req,res)=>{
+app.get('/read-request/:tracking_id', cors(corsOptions),async (req,res)=>{
 
     const track_id = req.params.tracking_id
     if(!track_id){
@@ -113,7 +114,7 @@ app.get('/read-request/:tracking_id',async (req,res)=>{
 })
 
 // For Searching From Search bar
-app.post('/read-request',async (req,res)=>{
+app.post('/read-request', cors(corsOptions),async (req,res)=>{
 
     const track_id = req.body.tracking_id
     if(!track_id){
@@ -129,7 +130,7 @@ app.post('/read-request',async (req,res)=>{
     }
 })
 
-app.post('/read-certificate-by-id',async(req,res)=>{
+app.post('/read-certificate-by-id', cors(corsOptions), async(req,res)=>{
 
     let cert_id = req.body.certificate_id
 
@@ -145,7 +146,7 @@ app.post('/read-certificate-by-id',async(req,res)=>{
     }
 })
 
-app.post('/verify-by-hash', async(req,res)=>{
+app.post('/verify-by-hash', cors(corsOptions), async(req,res)=>{
     
     let certificate_hash = req.body.certificate_hash
     if(!certificate_hash){
