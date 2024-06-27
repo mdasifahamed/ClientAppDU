@@ -6,7 +6,11 @@ const contract = require('./contract')
 const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
-app.use(cors({credentials:true,origin:true}));
+let corsOptions = {
+    origin : ['http://localhost:3000'],
+}
+app.use(cors(corsOptions))
+
 
 app.post('/issue-certificate',async(req,res)=>{
     if(!req.body.tracking_id){
