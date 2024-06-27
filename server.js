@@ -40,6 +40,9 @@ app.post('/issue-certificate', cors(corsOptions),async(req,res)=>{
         if (parseInt(result) === 0 ){
             return res.status(200).json({data: `Certificate Already Created For The Tracking Id ${track_id}`})
         }
+        if( result === "Something Went Wrong"){
+            return res.status(500).json({data:"Failed To Connect The Blokchain Network"})
+        }
         return res.status(201).json({data: `Certificate Created With The Certificate Id ${result}`})
     } catch (error) {
         if (error){
