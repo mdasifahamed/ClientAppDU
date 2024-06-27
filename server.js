@@ -30,6 +30,9 @@ app.post('/issue-certificate',async(req,res)=>{
 
     try {
         let result = await contract.issue_certificate(track_id.toString(),cert_hash,cert_id.toString())
+        if (parseInt(result) === 0 ){
+            return res.status(200).json({data: `Certificate Already Created For The Tracking Id ${track_id}`})
+        }
         return res.status(201).json({data: `Certificate Created With The Certificate Id ${result}`})
     } catch (error) {
         if (error){
