@@ -48,7 +48,7 @@ app.get('/get-all-the-request', async(req,res)=>{
     }
 })
 
-app.get('/history-of-certificate',async (req,res)=>{
+app.post('/history-of-certificate',async (req,res)=>{
 
     let tracking_id = req.body.tracking_id
     if(!tracking_id){
@@ -83,7 +83,7 @@ app.get('/read-request/:tracking_id',async (req,res)=>{
 })
 
 // For Searching From Search bar
-app.get('/read-request',async (req,res)=>{
+app.post('/read-request',async (req,res)=>{
 
     const track_id = req.body.tracking_id
     if(!track_id){
@@ -99,7 +99,7 @@ app.get('/read-request',async (req,res)=>{
     }
 })
 
-app.get('/read-certificate-by-id',async(req,res)=>{
+app.post('/read-certificate-by-id',async(req,res)=>{
 
     let cert_id = req.body.certificate_id
 
@@ -115,7 +115,7 @@ app.get('/read-certificate-by-id',async(req,res)=>{
     }
 })
 
-app.get('/verify-by-hash', async(req,res)=>{
+app.post('/verify-by-hash', async(req,res)=>{
     
     let certificate_hash = req.body.certificate_hash
     if(!certificate_hash){

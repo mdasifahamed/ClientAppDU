@@ -288,5 +288,3 @@
 ```
 
 
-"Documentation added for new endpoint /verify-by-
-hash
