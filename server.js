@@ -7,7 +7,7 @@ const app = exrpress()
 const port = 8000
 app.use(bodyParser.json())
 let corsOptions = {
-    origin : ['http://localhost:3000'],
+    origin : ['*']
 }
 app.use(cors(corsOptions))
 
