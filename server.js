@@ -41,9 +41,19 @@ app.post('/issue-certificate',async(req,res)=>{
 app.get('/get-all-the-request', async(req,res)=>{
 
     try {
-        let requests = await contract.get_all_request()
-        return res.status(200).json({data:JSON.parse(requests)})
+        const result = await contract.get_all_request()
+        let requests = JSON.parse(result)
+        requests.forEach(request =>{
+            if(request.Is_Reqeust_Completed){
+                request.Requester_Authority = "Dhaka College"
+                request.Issuer_Authority = "Dhaka Univertsity"
+            } else {
+                request.Requester_Authority = "Dhaka College"
+            }
+        })
+        return res.status(200).json({data:requests})
     } catch (error) {
+        console.log(error)
         return res.status(500).json({data:"Failed To Connect The Blokchain Network"})
     }
 })
@@ -57,7 +67,18 @@ app.post('/history-of-certificate',async (req,res)=>{
 
     try {
         let request_history =  await contract.history_of_a_request(tracking_id.toString())
-        return res.status(200).json({data:JSON.parse(request_history)})
+        let requests = JSON.parse(request_history)
+        requests.forEach(request =>{
+            if(request.Is_Reqeust_Completed){
+                request.Requester_Authority = "Dhaka College"
+                request.Issuer_Authority = "Dhaka Univertsity"
+            } else {
+                request.Requester_Authority = "Dhaka College"
+            }
+        })
+        
+        return res.status(200).json({data:requests})
+
     } catch (error) {
         if (error) {
             return res.status(500).json({data:`Certficate History Is Not Found For The Tracking Id : ${tracking_id}`})
