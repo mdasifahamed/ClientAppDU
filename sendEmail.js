@@ -26,8 +26,9 @@ async function sendEmail(student_name,cert_id,student_email){
         to: student_email,
         subject: 'Issuance Of The Certificate',
         text: `
-            Congratulation  ${student_name}, Your Certificate Has Been Issued.
-            You Can Verfied It Via The Below Link:
+            Congratulation,${student_name},
+            Your Certificate has been issued.
+            You can see the details by visiting the following link:
             ${process.env.APIBASEURL}/verify-certificate?certificate-id=${cert_id}
         `
     }
