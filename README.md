@@ -130,6 +130,7 @@
                         "track_id": "1",
                         "student_name": "John Doe",
                         "student_id": "123456",
+                        "student_email": "123456",
                         "degree": "Bachelor of Science",
                         "major": "Computer Science",
                         "result": "3.25"
