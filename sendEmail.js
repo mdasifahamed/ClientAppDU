@@ -18,7 +18,7 @@ const mailTransporter =
         }
     );
 
-async function sendEmail(student_name,track_id,student_email){
+async function sendEmail(student_name,cert_id,student_email){
     let success;
 
     let msgBody = {
@@ -27,12 +27,8 @@ async function sendEmail(student_name,track_id,student_email){
         subject: 'Issuance Of The Certificate',
         text: `
             Congratulation  ${student_name}, Your Certificate Has Been Issued.
-            You Can Verfied It Via Below Link:
-            ${process.env.APIBASEURL}:${process.env.PORT}/read-request/${track_id}
-
-            Check Issuance Process Of The Certificate From The Below Link :
-
-            ${process.env.APIBASEURL}:${process.env.PORT}/history-of-certificate/${track_id}
+            You Can Verfied It Via The Below Link:
+            ${process.env.APIBASEURL}:${process.env.PORT}/verify-certificate?certificate-id=${cert_id}
         `
     }
     

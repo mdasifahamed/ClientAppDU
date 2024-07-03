@@ -51,7 +51,7 @@ app.post('/issue-certificate', cors(corsOptions),async(req,res)=>{
         if( result === "Something Went Wrong"){
             return res.status(500).json({data:"Failed To Connect The Blokchain Network"})
         }
-        let emailStatus = await sendEmail(student_name,track_id,student_email)
+        let emailStatus = await sendEmail(student_name,cert_id,student_email)
         if (emailStatus === false) {
 
             return res.status(500).json({data:`Certificate Created With The Certificate Id ${result}. But Email Was not Sent`})
