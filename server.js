@@ -222,8 +222,6 @@ app.get('/read-certificate-by-id/:certificate_id', cors(corsOptions), async(req,
 
     let cert_id = req.params.certificate_id
 
-    
-
     try {
         const certificate = await contract.read_certificate_by_certid(cert_id.toString())
         let cert = JSON.parse(certificate);

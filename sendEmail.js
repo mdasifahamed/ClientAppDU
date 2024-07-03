@@ -28,7 +28,7 @@ async function sendEmail(student_name,cert_id,student_email){
         text: `
             Congratulation  ${student_name}, Your Certificate Has Been Issued.
             You Can Verfied It Via The Below Link:
-            ${process.env.APIBASEURL}:${process.env.PORT}/verify-certificate?certificate-id=${cert_id}
+            ${process.env.APIBASEURL}/verify-certificate?certificate-id=${cert_id}
         `
     }
     
